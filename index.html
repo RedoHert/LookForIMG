@@ -122,6 +122,10 @@
             color:white;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
+        .pagewarning p{
+            background-color: aquamarine;
+            border-radius: 30px;
+        }
     </style>
 </head>
 <body background="bg.jpg">
@@ -147,9 +151,14 @@
         <div id="results"></div>
 
         <div class="pagination">
+            <button id="firstPageBtn" onclick="firstPage()" disabled>Primeira página</button>
             <button id="prevBtn" onclick="previousPage()" disabled>Anterior</button>
             <button id="nextBtn" onclick="nextPage()" disabled>Próximo</button>
+            <div class="pagewarning">
+                <p>⚠️A sua página atual é a mesma que a da sua pesquisa anterior.</p>
+            </div>
         </div>
+        
     </div>
     <footer class="rodape">
         <p>Fornecido por <b>Pixabay</b></p>
@@ -198,22 +207,22 @@
 }
 
 
-        function updatePaginationButtons() {
-            const prevBtn = document.getElementById("prevBtn");
-            const nextBtn = document.getElementById("nextBtn");
+function updatePaginationButtons() {
+    const firstPageBtn = document.getElementById("firstPageBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-            if (currentPage === 1) {
-                prevBtn.disabled = true;
-            } else {
-                prevBtn.disabled = false;
-            }
+    firstPageBtn.disabled = currentPage === 1;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+}
 
-            if (currentPage === totalPages) {
-                nextBtn.disabled = true;
-            } else {
-                nextBtn.disabled = false;
-            }
+        
+        function firstPage() {
+            currentPage = 1;
+            searchImages();
         }
+
 
         function nextPage() {
             currentPage++;
